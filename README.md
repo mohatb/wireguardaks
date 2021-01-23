@@ -24,8 +24,8 @@ TZ: timezone
 SERVERURL: <external ip exposed by the LB service>
 PEERDNS: <DNS Server IP> # can be set to coredns ip.
 ALLOWEDIPS: <this is the network clients will be able to access> #you can set this to the vnet subnet. if peerdns is outside this range, you may want to set it also.
-#example: 
-#ALLOWEDIPS: 10.244.1.0/24, 10.0.0.10/32
+#example using podcidr and servicecidr: 
+#ALLOWEDIPS: 10.244.0.0/16, 10.0.0.0/16
 INTERNAL_SUBNET: <this will be used by the clients and the wireguard pod, better not to conflict with allowed ips from the vnet.>
 
 ```
