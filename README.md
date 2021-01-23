@@ -6,6 +6,10 @@ https://docs.microsoft.com/en-us/azure/aks/custom-node-configuration
 2- Create LB service (get the public ip)
 
 use wireservice.yaml
+```
+kubectl apply -f wireservice.yaml
+```
+
 
 
 3- create the pvc from yaml
