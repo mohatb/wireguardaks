@@ -1,20 +1,21 @@
 # wireguardaks
 
-1- register custom node config to allow unsafe sysctl https://docs.microsoft.com/en-us/azure/aks/custom-node-configuration
-
-https://docs.linuxserver.io/images/docker-wireguard
+1- register custom node config to allow unsafe sysctl (you need to create a new cluster or a new nodepool with custom config).
 https://docs.microsoft.com/en-us/azure/aks/custom-node-configuration
 
-- start the process:
-1- Create LB service (get the public ip)
+2- Create LB service (get the public ip)
 
 use wireservice.yaml
 
 
-2- create the pvc from yaml
+3- create the pvc from yaml
 
 use wirepvc.yaml
 
-3- create the deployment
+4- create the deployment
 
 wiredeploy.yaml
+
+Ref:
+https://docs.linuxserver.io/images/docker-wireguard
+https://docs.microsoft.com/en-us/azure/aks/custom-node-configuration
