@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wireguard
+  namespace: wireguard
+  annotations:
+    fluxcd.io/automated: 'true'
+    fluxcd.io/tag.wireguard: 'regex:^v1.0.+-ls[0-9]+$'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wireguard
+  template:
+    metadata:
+      labels:
+        app: wireguard
+    spec:
+      securityContext:
+        sysctls:
+          - name: net.ipv4.ip_forward
+            value: '1'
+      volumes:
+        - name: wg-config
+          persistentVolumeClaim:
+            claimName: pv-claim-wireguard 
+        - name: host-volumes
+          hostPath:
+            path: /lib/modules
+            type: Directory
+      containers:
+      - name: wireguard
+        image: linuxserver/wireguard:v1.0.20200827-ls1
+        #imagePullPolicy: Always
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_MODULE
+        volumeMounts:
+          - name: wg-config
+            mountPath: /config
+          - name: host-volumes
+            mountPath: /lib/modules
+        env:
+        - name: PUID
+          value: '1001'
+        - name: PGID
+          value: '1001'
+        - name: TZ
+          value: 'Europe/London'
+        - name: SERVERURL
+          value: '20.76.59.201'
+        - name: PEERS
+          value: '3'
+        - name: PEERDNS
+          value: '10.0.0.10'
+        - name: ALLOWEDIPS
+          value: '10.244.1.0/24'
+        - name: INTERNAL_SUBNET
+          value: '10.13.13.0'
+        ports:
+        - name: wireguard
+          containerPort: 51820
+          protocol: UDP

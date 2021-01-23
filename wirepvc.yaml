@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-claim-wireguard 
+  namespace: wireguard
+spec:
+  storageClassName: "default"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100M
